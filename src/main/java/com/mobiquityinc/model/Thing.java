@@ -3,7 +3,8 @@ package com.mobiquityinc.model;
 public class Thing {
     private int id;
     private float size;
-    private float price;
+    private Float price;
+    private Float packageWeight;
 
     public int getId() {
         return id;
@@ -21,18 +22,29 @@ public class Thing {
         this.size = size;
     }
 
-    public float getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
-    public Thing(int id, float size, float price) {
+    public Float getPackageWeight() {
+        return packageWeight;
+    }
+
+    public void setPackageWeight(Float packageWeight) {
+        this.packageWeight = packageWeight;
+    }
+
+    public Thing(int id, float size, float price, Float packageWeight) {
         this.id = id;
         this.size = size;
         this.price = price;
+        this.packageWeight = packageWeight;
     }
+
+
 
 }
