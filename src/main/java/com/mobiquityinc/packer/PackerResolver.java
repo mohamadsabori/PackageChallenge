@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 /**
  * It first evaluates which of the things can be packed in the space. Based on this
  * result, it finds the most expensive ones.
- *
  */
 
 public class PackerResolver {
@@ -55,17 +54,16 @@ public class PackerResolver {
     /**
      * This function save all things that can handle by each package and create Total Object which contains package
      * weight and total price of things inside that package
-     * @param allThingResults
-     * @param weightOfPackage
+     * @param allThingResults The result of packing objects
+     * @param weightOfPackage The Maximum weight of the package
      * @return TotalObjectsInPackage this class holds all needed data for preparing output
      */
     public TotalObjectsInPackage setFinalValues(List<Thing> allThingResults, Float weightOfPackage) {
-        Float totalCostOfObjectsInPackage = new Float(0);
+        Float totalCostOfObjectsInPackage = 0.0f;
         for (Thing allThingResult : allThingResults) {
             totalCostOfObjectsInPackage += allThingResult.getPrice();
         }
-        TotalObjectsInPackage totalObjectsInPackage = new TotalObjectsInPackage(allThingResults, totalCostOfObjectsInPackage, weightOfPackage);
-        return totalObjectsInPackage;
+        return new TotalObjectsInPackage(allThingResults, totalCostOfObjectsInPackage, weightOfPackage);
     }
 
     /**
@@ -73,8 +71,8 @@ public class PackerResolver {
      * 1- if cant find any thing to save in package return -
      * 2- if there is any possible thing(s) return , seperated values
      * 3- if there is same price between some packages return less weight package weight
-     * @param finalResult
-     * @return
+     * @param finalResult The result of packing
+     * @return The final prepared output solution step
      */
 
     public String prepareFinalValues(List<TotalObjectsInPackage> finalResult) {
@@ -109,8 +107,8 @@ public class PackerResolver {
     /**
      * This function extracts line values and instantiates the LineValues object to get all line values easily
      * @param line The line containing the thing values and package weight
-     * @return
-     * @throws APIException
+     * @return The Value of the Line read
+     * @throws APIException if the file format is corrupt
      */
     public LineValues getLineValuesAsobject(String line) throws APIException {
         try{
@@ -127,7 +125,7 @@ public class PackerResolver {
     /**
      * Extracts the values from the input file and instantiates the objects
      * in this function we have to split saved value in LineString property with ',' character to extract each thing properties
-     * @param values
+     * @param values The Lines read from the file
      * @return A list of THING constructed objects
      */
     public List<Thing> createThingObject(LineValues values) {
