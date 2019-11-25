@@ -6,9 +6,7 @@ import com.mobiquityinc.model.Thing;
 import com.mobiquityinc.model.TotalObjectsInPackage;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 
@@ -16,14 +14,15 @@ public class PackerTest {
 
     /***
      * Simple Test for checking all process and final result with two text file as input
-     * @throws APIException
+     * @throws APIException When cant find file or file is corrupted
      */
     @Test
     public void pack() throws APIException {
-        String result = Packer.pack("C:\\Project\\java\\PackageChallenge\\src\\test\\resources\\test.txt");
+
+        String result = Packer.pack(Objects.requireNonNull(getClass().getClassLoader().getResource("test.txt")).getFile());
 //        String result = Packer.pack(getClass().getClassLoader().getResource("test.txt").getFile());
         assertEquals("-\n3\n-\n",result);
-        result = Packer.pack("C:\\Project\\java\\PackageChallenge\\src\\test\\resources\\pack.txt");
+        result = Packer.pack(Objects.requireNonNull(getClass().getClassLoader().getResource("pack.txt")).getFile());
 //        result = Packer.pack(getClass().getClassLoader().getResource("pack.txt").getFile());
         assertEquals("4\n" +
                 "-\n" +
@@ -60,7 +59,7 @@ public class PackerTest {
     @Test
     public void prepareOutPut() {
         PackerResolver packerResolver = new PackerResolver();
-        List<Integer> finalValues = Arrays.asList(1);
+        List<Integer> finalValues = Collections.singletonList(1);
         String result = packerResolver.prepareOutPut(finalValues);
         assertEquals("1",result);
         finalValues = Arrays.asList(1,5,6,7);

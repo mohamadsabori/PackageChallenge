@@ -130,7 +130,7 @@ public class PackerResolver {
      * @param values
      * @return A list of THING constructed objects
      */
-    public static List<Thing> createThingObject(LineValues values) {
+    public List<Thing> createThingObject(LineValues values) {
         List<Thing> things = new ArrayList<>();
         for (String s : values.getThingsValue()) {
             String[] packageValues = s.split(",");
@@ -148,7 +148,7 @@ public class PackerResolver {
      * @param finalValues The final output result of solution
      * @return The constructed solution part as a String
      */
-    public static String prepareOutPut(List<Integer> finalValues) {
+    public String prepareOutPut(List<Integer> finalValues) {
         if(finalValues.isEmpty()){
             return "-";
         }
@@ -164,7 +164,7 @@ public class PackerResolver {
      * @param things The list of things to be packed
      * @return A List containing the solutions
      */
-    public static List<Thing> getPackingResult(List<Thing> things) {
+    public List<Thing> getPackingResult(List<Thing> things) {
         SortedMap<Float, List<Thing>> finalValues = new TreeMap<>();
         for (Thing thing : things) {
             if(!finalValues.containsKey(thing.getPrice())){
